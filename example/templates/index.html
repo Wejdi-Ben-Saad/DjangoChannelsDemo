@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Django Channels Demo</title>
+        <script>
+            var socket = new WebSocket('ws://' + window.location.host );
+
+            socket.onopen = function open() {console.log('WebSockets connection created.');};
+
+            socket.onmessage = function message(event) {
+                if (event.data =='clear'){
+                    document.getElementById("myTextarea").value='';
+                }
+                else{
+                    document.getElementById("myTextarea").value = document.getElementById("myTextarea").value+event.data+"\n";
+                } 
+            }; 
+
+            function send(){
+                var user = document.getElementById("user").value;
+                var text = document.getElementById("myText").value; 
+                message={"user":user,"text":text};
+                socket.send(JSON.stringify(message));
+            }
+        </script> 
+    </head>
+    <body>
+        <body>
+            <h2>A Django Channels Demo</h2>
+            <div>
+                <label>Your Name</label>
+            </div> 
+            <div>
+                <input type="text" id="user" style="margin-bottom: 10px;">
+            </div>
+            <div>
+                <textarea rows="20" cols="100" id="myTextarea"></textarea>
+            </div>
+            <div>
+                <input type="text" id="myText" value="Some text...">
+                <button onclick="send()">Send</button> 
+            </div> 
+        </body>    
+    </body>
+</html>

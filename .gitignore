@@ -8,3 +8,10 @@ db.sqlite3
 
 # visual studio code workspace:
 .vscode
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+*backup*

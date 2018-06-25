@@ -16,8 +16,11 @@ Including another URLconf
 
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth.views import login, logout
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('example.urls',namespace='example')),
+    url(r'^accounts/login/$', login, name='login'),  # The base django login view
+    url(r'^accounts/logout/$', logout, name='logout'),  # The base django logout view
 ]

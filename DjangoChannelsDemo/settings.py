@@ -122,21 +122,24 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-#CHANNEL_LAYERS = {
-#    'default': {
-#        'BACKEND': 'asgi_redis.RedisChannelLayer',
-#        'CONFIG': {
-#            'hosts': [('localhost', 6379)],
-#        },
-#    'ROUTING': 'DjangoChannelsDemo.routing.channel_routing',
-#    }
-#}
-
 CHANNEL_LAYERS = {
-    'default': {
-        "BACKEND": "asgiref.inmemory.ChannelLayer",
-        'ROUTING': 'DjangoChannelsDemo.routing.channel_routing',
-    }
+   'default': {
+       'BACKEND': 'asgi_redis.RedisChannelLayer',
+       'CONFIG': {
+           'hosts': [('localhost', 6379)],
+       },
+   'ROUTING': 'DjangoChannelsDemo.routing.channel_routing',
+   }
 }
+
+# CHANNEL_LAYERS = {
+#     'default': {
+#         "BACKEND": "asgiref.inmemory.ChannelLayer",
+#         'ROUTING': 'DjangoChannelsDemo.routing.channel_routing',
+#     }
+# }
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 

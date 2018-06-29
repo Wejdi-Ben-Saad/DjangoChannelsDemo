@@ -14,5 +14,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Backup files
 *backup*
+
+# Migrations
 example/migrations/*

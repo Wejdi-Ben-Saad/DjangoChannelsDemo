@@ -68,11 +68,19 @@ header h1 {
     font-size: 40px;
 }
 
-header a {
+div#header .status {
     position: absolute;
-    top: 10px;
+    top: 20px;
     right: 20px;
     color: #fff;
+}
+
+.indent{ 
+    padding-left: 0.5em 
+}
+
+strong{
+    font-weight: bold;
 }
 
 /* Body */

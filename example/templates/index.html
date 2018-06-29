@@ -24,6 +24,37 @@
         }
     </script> 
 {% endblock %}
+{% block script %}
+  <script>
+    
+    var socketUserList = new WebSocket('ws://' + window.location.host +'/user_list/');
+
+    socketUserList.onopen = function open() {
+      console.log('User List WebSockets connection created.');
+    };
+
+    socketUserList.onmessage = function message(event) {
+      var data = JSON.parse(event.data);
+      // NOTE: We escape JavaScript to prevent XSS attacks.
+      var username = encodeURI(data['username']);
+      var user = $('li').filter(function () {
+        return $(this).data('username') == username;
+      });
+
+      if (data['is_logged_in']) {
+        user.html(username + ': Online');
+        console.log(username + ': Online')
+      }
+      else {
+        user.html(username + ': Offline');
+      }
+    };
+
+    if (socketUserList.readyState == WebSocket.OPEN) {
+        socketUserList.onopen();
+    }
+  </script>
+{% endblock script %}
  
 {% block header_text %}MultiChat Example{% endblock %}
 {% block content %}
@@ -31,7 +62,7 @@
         <label>Your Name</label>
     </div> 
     <div>
-        <input type="text" id="user" style="margin-bottom: 10px;">
+        <input type="text" id="user" style="margin-bottom: 10px;" readonly value={{name}}>
     </div>
     <div>
         <textarea rows="20" cols="100" id="myTextarea"></textarea>
@@ -40,5 +71,16 @@
         <input type="text" id="myText" value="Some text...">
         <button onclick="send()">Send</button> 
     </div> 
-{% endblock %}    
+{% endblock %} 
+
+{% block extra_body %}
+<ul>
+    {% for user in users %}
+      <!-- NOTE: We escape HTML to prevent XSS attacks. -->
+      <li data-username="{{ user.username|escape }}">
+        {{ user.username|escape }}: {{ user.status|default:'Offline' }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
  

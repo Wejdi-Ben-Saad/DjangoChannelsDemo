@@ -121,7 +121,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+# Channel layer definition
 CHANNEL_LAYERS = {
    'default': {
        'BACKEND': 'asgi_redis.RedisChannelLayer',
@@ -139,7 +139,11 @@ CHANNEL_LAYERS = {
 #     }
 # }
 
+# Login/logout redirect
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+
+# Sessions
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 

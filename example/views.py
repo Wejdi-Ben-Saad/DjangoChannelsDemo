@@ -18,7 +18,7 @@ def home(request):
     users = User.objects.select_related('logged_in_user')
     for user in users:
         user.status = 'Online' if hasattr(user, 'logged_in_user') else 'Offline'
-    return render(request, 'index.html', {'users': users, 'name':user.username})    
+    return render(request, 'index.html', {'users': users, 'name':request.user.username})    
 
 def signup(request):
     if request.method == 'POST':
